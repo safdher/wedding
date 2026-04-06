@@ -1,13 +1,43 @@
-// Initialize AOS animations
-AOS.init({
-    duration: 1000,
-    once: true,
-    offset: 100,
-    easing: 'ease-out-cubic'
-});
+// Add envelope lock on load to prevent scrolling
+document.body.classList.add('envelope-locked');
 
-// Create active timeline scroll effect
 document.addEventListener('DOMContentLoaded', () => {
+    // --- Envelope Logic ---
+    const waxSeal = document.getElementById('waxSeal');
+    const envelope = document.querySelector('.envelope');
+    const envelopeOverlay = document.getElementById('envelope-overlay');
+
+    if (waxSeal && envelope && envelopeOverlay) {
+        waxSeal.addEventListener('click', () => {
+            // Open the envelope flap
+            envelope.classList.add('open');
+            
+            // Wait for flap animation (1.5s) to finish, then fade out overlay
+            setTimeout(() => {
+                envelopeOverlay.classList.add('hidden');
+                document.body.classList.remove('envelope-locked');
+                
+                // Initialize AOS animations AFTER envelope is opened
+                AOS.init({
+                    duration: 1000,
+                    once: true,
+                    offset: 100,
+                    easing: 'ease-out-cubic'
+                });
+            }, 1500); 
+        });
+    } else {
+        // Fallback if envelope isn't present
+        document.body.classList.remove('envelope-locked');
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100,
+            easing: 'ease-out-cubic'
+        });
+    }
+
+    // --- Create active timeline scroll effect ---
     const timeline = document.querySelector('.timeline');
     if(timeline) {
         // Create an active line element if it doesn't exist
