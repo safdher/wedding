@@ -11,12 +11,12 @@ document.addEventListener('DOMContentLoaded', () => {
         waxSeal.addEventListener('click', () => {
             // Open the envelope flap
             envelope.classList.add('open');
-            
+
             // Wait for flap animation (1.5s) to finish, then fade out overlay
             setTimeout(() => {
                 envelopeOverlay.classList.add('hidden');
                 document.body.classList.remove('envelope-locked');
-                
+
                 // Initialize AOS animations AFTER envelope is opened
                 AOS.init({
                     duration: 1000,
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     offset: 100,
                     easing: 'ease-out-cubic'
                 });
-            }, 1500); 
+            }, 1500);
         });
     } else {
         // Fallback if envelope isn't present
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Create active timeline scroll effect ---
     const timeline = document.querySelector('.timeline');
-    if(timeline) {
+    if (timeline) {
         // Create an active line element if it doesn't exist
         const activeLine = document.createElement('div');
         activeLine.id = 'active-line';
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const timelineRect = timeline.getBoundingClientRect();
             // Calculate how far we've scrolled into the timeline
             const viewportHeight = window.innerHeight;
-            
+
             // Start growing the line when timeline enters middle of viewport
             if (timelineRect.top < viewportHeight / 2) {
                 let height = (viewportHeight / 2) - timelineRect.top;
